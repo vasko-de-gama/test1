@@ -54,23 +54,23 @@ sub resp_index {
   my $Address = $cgi->param('address') || undef;
 
   my $Data;
-  my $selfML;
+  my $XML;
 
   if ($Action eq 'search' && $Address ne '') {
     _bs($self,'getlogs',"Запрос логов");
     $Data = GetLogs($Address);
     _be($self,'getlogs');
     _bs($self,'obj2dom',"data => xml");
-    $selfML = Obj2DOM(obj=>$Data->{'list'},root=>{name=>'logs'});
+    $XML = Obj2DOM(obj=>$Data->{'list'},root=>{name=>'logs'});
     _be($self,'obj2dom');
   } else{
-    $selfML=Obj2DOM(obj=>[],root=>{name=>'logs'});
+    $XML=Obj2DOM(obj=>[],root=>{name=>'logs'});
   }
 
-  $selfML =~ s/<\?xml.+?>[\n\r]?//;
-  $selfML = '<?xml version="1.0" encoding="utf-8"?>
+  $XML =~ s/<\?xml.+?>[\n\r]?//;
+  $XML = '<?xml version="1.0" encoding="utf-8"?>
 <root>
-' . $selfML 
+' . $XML 
 . '<all_count>'.$Data->{'count'}.'</all_count>'
 . '<search>'.Escape($Address).'</search>'
 . '<bench>'._bf($self).'</bench>
@@ -78,14 +78,14 @@ sub resp_index {
 
   if ($ShowXML) {
     print $cgi->header(-type=>"text/xml;charset=utf8");
-    print $selfML;
+    print $XML;
     return;
   }
 
   print $cgi->header(-type=>"text/html;charset=utf8");
 
   my $Source = $Parser->load_xml(
-    string => $selfML,
+    string => $XML,
   );
 
   my $Stylesheet = $selfSLT->parse_stylesheet_file('./xsl/index.xsl');
