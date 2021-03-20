@@ -172,7 +172,7 @@ sub Obj2DOM {
 sub GetLogs {
   my $EMail = shift;;
 
-  #может чего покрасивее можно. ну вроде через UNION имекет право на жизнь
+  #может чего покрасивее можно. ну вроде через UNION имеет право на жизнь
   # но limit общий на два запроса, а-я-яй. ну и ладно
   my $List = MyDB::DBQuery("
     SELECT SQL_CALC_FOUND_ROWS
