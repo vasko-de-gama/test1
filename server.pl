@@ -19,20 +19,20 @@ my $selfSLT = XML::LibXSLT->new;
 my %dispatch = (
   '/' => \&resp_index,
 );
- 
+
 sub handle_request {
     my $self = shift;
     my $cgi  = shift;
 
     MyDB::_connect(); #демонезировались и потеряли коннект. хитрые реконнекты городить не охота, поступим тупо
-   
+
     my $path = $cgi->path_info();
     my $handler = $dispatch{$path};
- 
+
     if (ref($handler) eq "CODE") {
         print "HTTP/1.0 200 OK\r\n";
         $handler->($self,$cgi);
-         
+
     } else {
         print "HTTP/1.0 404 Not found\r\n";
         print $cgi->header,
@@ -93,7 +93,7 @@ sub resp_index {
 
   #print $Source;
   print $Result;
- 
+
   return;
 }
 
@@ -278,7 +278,7 @@ sub _bf {
   return if ( !(exists $self->{'bench'} && $self->{'bench'}) );
 
   my $Out;
-  
+
   $Out = "BENCHMARK ".localtime().":\n\n" if scalar keys %{$self->{'bench_list'}};
 
   foreach my $Key (sort keys %{$self->{'bench_list'}}) {
@@ -300,7 +300,7 @@ sub _bf {
   return $Out if $self->{'bench'};
 }
 
-} 
- 
+}
+
 my $pid = MyWebServer->new(3333)->background();
 print "Use 'kill $pid' to stop server.\n";
