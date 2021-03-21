@@ -3,6 +3,7 @@ package Core;
 use strict;
 use utf8;
 use Time::HiRes qw(gettimeofday sleep);
+use XML::LibXML;
 
 my $Doc;
 sub Obj2DOM {
