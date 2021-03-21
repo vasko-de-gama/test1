@@ -120,13 +120,14 @@ sub finish {
       ##print "executed\n";
       $_->execute() or MyDB::_err($_->errstr);
     }
-    $DBH->commit();
   };
 
   if ($@) {
     MyDB::_err('Bulk insert error: '.$@);
     $DBH->rollback();
+    return;
   }
+  $DBH->commit();
 
 }
 
