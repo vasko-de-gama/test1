@@ -14,7 +14,7 @@ use HTTP::Server::Simple::CGI;
 use base qw(HTTP::Server::Simple::CGI);
 
 my $Parser = XML::LibXML->new();
-my $selfSLT = XML::LibXSLT->new;
+my $XSLT = XML::LibXSLT->new;
 
 my %dispatch = (
   '/' => \&resp_index,
@@ -88,7 +88,7 @@ sub resp_index {
     string => $XML,
   );
 
-  my $Stylesheet = $selfSLT->parse_stylesheet_file('./xsl/index.xsl');
+  my $Stylesheet = $XSLT->parse_stylesheet_file('./xsl/index.xsl');
   my $Result = $Stylesheet->transform($Source);
 
   #print $Source;
