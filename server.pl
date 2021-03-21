@@ -165,7 +165,7 @@ sub Obj2DOM {
   }
 
   $Doc->setDocumentElement($Parent) unless $Sub;
-  return $Doc->toString;
+  return $Doc;
 }
 
 sub GetLogs {
