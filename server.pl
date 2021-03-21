@@ -165,7 +165,6 @@ sub Obj2DOM {
   }
 
   $Doc->setDocumentElement($Parent) unless $Sub;
-  #$Doc =~ s///g; #костыль, потом прикрепим
   return $Doc->toString;
 }
 
