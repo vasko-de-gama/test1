@@ -3,6 +3,7 @@
 use strict;
 use utf8;
 use MyDB;
+use Core;
 use MySettings;
 use Data::Dumper;
 
@@ -30,6 +31,9 @@ my $BulkLog = MyDB::BulkInsert(
 #  $BulkMessage->do('2001-11-11','2','one','two');
 #}
 
+my $s = {bench=>{}}; #тут по идее должен быть какой-тo self, ну да и ладно
+
+Core::_bs($s,'All','All work');
 
 open F,'<'.$LogPath or die $!;
 while (<F>) {
@@ -62,17 +66,28 @@ while (<F>) {
 #      print $_;
       next;
     }
+    Core::_bs($s,'DoMessage','Prepare to "message" table');
     $BulkMessage->do($Date.' '.$Time,$ID,$IDint,$Str);
+    Core::_be($s,'DoMessage');
   } else {
+    Core::_bs($s,'DoLog','Prepare to "log" table');
     $BulkLog->do($Date.' '.$Time,$IDint,$Str,$Address);
+    Core::_be($s,'DoLog');
   }
-
 
 }
 close F;
+Core::_be($s,'All');
 
+Core::_bs($s,'BulkMessage','Write to "message" table');
 $BulkMessage->finish();
+Core::_be($s,'BulkMessage');
+
+Core::_bs($s,'BulkLog','Write to "log" table');
 $BulkLog->finish();
+Core::_be($s,'BulkLog');
+
+print "\n".Core::_bf($s);
 
 sub ValidEMAIL {
   my $Email = shift;
