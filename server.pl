@@ -76,13 +76,12 @@ sub resp_index {
 . '<bench>'.Core::_bf($self).'</bench>
 </root>';
 
+  print $cgi->header(-type=>"text/xml;charset=utf8");
+
   if ($ShowXML) {
-    print $cgi->header(-type=>"text/xml;charset=utf8");
     print $XML;
     return;
   }
-
-  print $cgi->header(-type=>"text/html;charset=utf8");
 
   my $Source = $Parser->load_xml(
     string => $XML,
