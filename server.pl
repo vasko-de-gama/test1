@@ -145,5 +145,5 @@ sub GetLogs {
 
 }
 
-my $pid = MyWebServer->new(3333)->background();
+my $pid = MyWebServer->new(&MySettings::SERVER_PORT)->background();
 print "Use 'kill $pid' to stop server.\n";
