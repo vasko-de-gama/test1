@@ -6,6 +6,7 @@ use constant {
   DB_PORT => 3311,
   DB_LOGIN => 'root',
   DB_PASSWORD => '',
+  SERVER_PORT => 3333,
 };
 
 
