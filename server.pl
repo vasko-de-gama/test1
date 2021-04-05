@@ -87,7 +87,7 @@ sub resp_index {
     string => $XML,
   );
 
-  my $Stylesheet = $XSLT->parse_stylesheet_file('./xsl/index.xsl');
+  my $Stylesheet = $XSLT->parse_stylesheet_file('./xsl/index.xsl'); #ну вообще если это проект, то подайте maindir из настроек. а вот вычислять, где оно лежит... в общем запускаем из текущей папки скрипт
   my $Result = $Stylesheet->transform($Source);
 
   #print $Source;
