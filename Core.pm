@@ -93,8 +93,8 @@ sub _bs {
   my $Desc = shift || undef;
   return if ( !(exists $self->{'bench'} && $self->{'bench'}) );
 
-  $self->Error("Bench: _bs(); key not defined in string format") unless $Key;
-  $self->Error("Bench: _bs(): Key is not a string") if ref $Key;
+  die("Bench: _bs(); key not defined in string format") unless $Key;
+  die("Bench: _bs(): Key is not a string") if ref $Key;
 
     $self->{'bench_list'}->{$Key} = {
       'desc' => $Desc,
